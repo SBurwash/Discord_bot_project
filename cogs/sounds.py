@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands, tasks
-
+import youtube_dl
 
 
 class Sounds(commands.Cog):
@@ -25,7 +25,27 @@ class Sounds(commands.Cog):
     @commands.command()
     async def leave(self, ctx):
         await ctx.voice_client.disconnect()
-    # @commands.command(aliases=[], help='This comand plays a song')
-    # async def play(self, ctx):
+
+    @commands.command(aliases=[], help='This comand plays a song')
+    async def play(self, ctx, url):
+        # if ctx.message.author.voice:
+        #     await ctx.send("You are not connected to a voice channel")
+        #     return
+        channel = ctx.message.author.voice.channel
+        await channel.connect()
+
+        server = ctx.guild
+        voice_channel = server.voice_client
+
+        async with ctx.typing():
+            player = await youtube_dl.from_url(url, self.bot.loop)
+            voice_channel.play(player, after=lambda e: print("Player error: %s" %e) if e else None)
+
+        await ctx.send(f"**Now Playing:** {player.title}")
+
+    @commands.command()
+    async def stop(self, ctx):
+        await ctx.voice_client.disconnect()
+
 def setup(bot):
     bot.add_cog(Sounds(bot))
