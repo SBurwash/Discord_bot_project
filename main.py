@@ -11,8 +11,9 @@ intents.presences = True
 
 
 load_dotenv()
+print(f'OMG ITS A TOKKEEEEENNNNNNN {os.getenv("TOKEN")}')
 TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
+
 
 # bot = discord.Client(intents=intents)
 bot = commands.Bot(command_prefix='!')
