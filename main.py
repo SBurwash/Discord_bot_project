@@ -11,7 +11,7 @@ intents.presences = True
 
 
 load_dotenv()
-print(f'OMG ITS A TOKKEEEEENNNNNNN {os.getenv("TOKEN")}')
+print(f'OMG ITS A TOKKEEEEENNNNNNN {os.getenv("DISCORD_TOKEN")}')
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 
